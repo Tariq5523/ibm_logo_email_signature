@@ -81,4 +81,4 @@ This tool is maintained by the IBM Center of Excellence team. For questions or s
 
 ---
 
-Made with ❤️ by IBM Center of Excellence
+Made with ❤️ by IBM Bob
