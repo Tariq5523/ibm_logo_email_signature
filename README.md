@@ -63,13 +63,6 @@ npm run build
 - **Framer Motion** - Animations
 - **gif.js** - GIF generation
 
-## 📄 License
-
-Created for IBM Center of Excellence
-
-## 🤝 Contributing
-
-This tool is maintained by the IBM Center of Excellence team. For questions or suggestions, please contact the department.
 
 ---
 
