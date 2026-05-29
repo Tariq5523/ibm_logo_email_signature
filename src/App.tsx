@@ -63,7 +63,7 @@ function App() {
         }}
       >
         <motion.img
-          src="/ibm_logo_email_signature/ibm-logo.png"
+          src={`${import.meta.env.BASE_URL}ibm-logo.png`}
           alt="IBM Logo"
           animate={animate ? getAnimationVariants(selectedAnimation) : {}}
           transition={{
@@ -88,7 +88,7 @@ function App() {
       // Load the IBM logo image
       const img = new Image();
       img.crossOrigin = 'anonymous';
-      img.src = '/ibm_logo_email_signature/ibm-logo.png';
+      img.src = `${import.meta.env.BASE_URL}ibm-logo.png`;
       
       await new Promise((resolve, reject) => {
         img.onload = resolve;
@@ -101,7 +101,7 @@ function App() {
         width: 200,
         height: 200,
         transparent: 0x000000, // Make black transparent
-        workerScript: '/ibm_logo_email_signature/gif.worker.js',
+        workerScript: `${import.meta.env.BASE_URL}gif.worker.js`,
       });
 
       // Create canvas for rendering
