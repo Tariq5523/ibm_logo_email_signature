@@ -1,5 +1,6 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
+// @ts-ignore - gif.js doesn't have TypeScript definitions
 import GIF from 'gif.js';
 
 type AnimationType = 'pulse' | 'swing' | 'bounce' | 'slide';
