@@ -368,6 +368,33 @@ function App() {
       </motion.div>
 
       <canvas ref={canvasRef} style={{ display: 'none' }} />
+
+      {/* Made by Bob Footer */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8 }}
+        style={{
+          marginTop: '40px',
+          paddingTop: '30px',
+          borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '12px',
+          opacity: 0.7,
+        }}
+      >
+        <span style={{ fontSize: '14px', color: '#C6C6C6' }}>Made by</span>
+        <img
+          src={`${import.meta.env.BASE_URL}IBM_bob_logo.svg`}
+          alt="Bob Logo"
+          style={{
+            height: '24px',
+            width: 'auto',
+          }}
+        />
+      </motion.div>
     </div>
   );
 }
