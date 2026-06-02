@@ -4,12 +4,19 @@ import { motion } from 'framer-motion';
 import GIF from 'gif.js';
 
 type AnimationType = 'pulse' | 'swing' | 'bounce' | 'slide';
+type LogoType = 'ibm' | 'coe';
 
 interface AnimationConfig {
   name: string;
   description: string;
   duration: number;
   frames: number;
+}
+
+interface LogoConfig {
+  name: string;
+  file: string;
+  displayName: string;
 }
 
 const animations: Record<AnimationType, AnimationConfig> = {
@@ -19,10 +26,16 @@ const animations: Record<AnimationType, AnimationConfig> = {
   slide: { name: 'Slide', description: 'Gentle slide motion', duration: 3, frames: 90 },
 };
 
+const logos: Record<LogoType, LogoConfig> = {
+  ibm: { name: 'IBM', file: 'ibm-logo.png', displayName: 'IBM Logo' },
+  coe: { name: 'COE', file: 'coe-logo.svg', displayName: 'Center of Excellence' },
+};
+
 function App() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [progress, setProgress] = useState(0);
   const [selectedAnimation, setSelectedAnimation] = useState<AnimationType>('pulse');
+  const [selectedLogo, setSelectedLogo] = useState<LogoType>('ibm');
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
 
@@ -50,8 +63,9 @@ function App() {
     }
   };
 
-  // IBM Logo - Just the logo, no background
-  const IBMLogo = ({ animate = false }: { animate?: boolean }) => {
+  // Logo Component - Supports both IBM and COE logos
+  const Logo = ({ animate = false }: { animate?: boolean }) => {
+    const currentLogo = logos[selectedLogo];
     return (
       <motion.div
         style={{
@@ -63,8 +77,9 @@ function App() {
         }}
       >
         <motion.img
-          src={`${import.meta.env.BASE_URL}ibm-logo.png`}
-          alt="IBM Logo"
+          key={selectedLogo} // Force re-render when logo changes
+          src={`${import.meta.env.BASE_URL}${currentLogo.file}`}
+          alt={currentLogo.displayName}
           animate={animate ? getAnimationVariants(selectedAnimation) : {}}
           transition={{
             duration: animations[selectedAnimation].duration,
@@ -85,10 +100,11 @@ function App() {
     setProgress(0);
 
     try {
-      // Load the IBM logo image
+      // Load the selected logo image
+      const currentLogo = logos[selectedLogo];
       const img = new Image();
       img.crossOrigin = 'anonymous';
-      img.src = `${import.meta.env.BASE_URL}ibm-logo.png`;
+      img.src = `${import.meta.env.BASE_URL}${currentLogo.file}`;
       
       await new Promise((resolve, reject) => {
         img.onload = resolve;
@@ -180,7 +196,7 @@ function App() {
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = `ibm-logo-${selectedAnimation}-${Date.now()}.gif`;
+        link.download = `${selectedLogo}-logo-${selectedAnimation}-${Date.now()}.gif`;
         link.click();
         URL.revokeObjectURL(url);
         
@@ -220,7 +236,7 @@ function App() {
           textAlign: 'center',
         }}
       >
-        IBM Logo GIF
+        Logo GIF Generator
       </motion.h1>
 
       <motion.p
@@ -234,8 +250,71 @@ function App() {
           textAlign: 'center',
         }}
       >
-        Animated IBM logo for email signatures
+        Animated logos for email signatures
       </motion.p>
+
+      {/* Logo Selector */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.15 }}
+        style={{
+          marginBottom: '30px',
+          width: '100%',
+          maxWidth: '500px',
+        }}
+      >
+        <p style={{
+          fontSize: '16px',
+          color: '#C6C6C6',
+          marginBottom: '12px',
+          textAlign: 'center',
+          fontWeight: '600',
+        }}>
+          Choose Logo
+        </p>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gap: '10px',
+        }}>
+          {(Object.keys(logos) as LogoType[]).map((type) => (
+            <motion.button
+              key={type}
+              onClick={() => setSelectedLogo(type)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              style={{
+                background: selectedLogo === type
+                  ? 'linear-gradient(135deg, #0F62FE 0%, #0353e9 100%)'
+                  : 'rgba(38, 38, 38, 0.7)',
+                border: selectedLogo === type
+                  ? '2px solid #0F62FE'
+                  : '2px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '12px',
+                padding: '16px',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+              }}
+            >
+              <div style={{
+                fontSize: '16px',
+                fontWeight: 'bold',
+                color: 'white',
+                marginBottom: '4px',
+              }}>
+                {logos[type].name}
+              </div>
+              <div style={{
+                fontSize: '12px',
+                color: '#C6C6C6',
+              }}>
+                {logos[type].displayName}
+              </div>
+            </motion.button>
+          ))}
+        </div>
+      </motion.div>
 
       {/* Animation Selector */}
       <motion.div
@@ -316,7 +395,7 @@ function App() {
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
         }}
       >
-        <IBMLogo animate={true} />
+        <Logo animate={true} />
       </motion.div>
 
       {/* Download Button */}
@@ -360,6 +439,8 @@ function App() {
       >
         <p style={{ fontSize: '14px', color: '#C6C6C6', lineHeight: '1.6' }}>
           <strong style={{ color: '#0F62FE' }}>📧 Email Signature Ready</strong>
+          <br />
+          {logos[selectedLogo].displayName} • {animations[selectedAnimation].name}
           <br />
           200×200px • Animated GIF • {animations[selectedAnimation].duration}s loop
           <br />

@@ -1,0 +1,41 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="100" cy="100" r="95" fill="#0F62FE" opacity="0.1"/>
+  <circle cx="100" cy="100" r="85" fill="none" stroke="#0F62FE" stroke-width="2"/>
+  
+  <!-- Inner Circle -->
+  <circle cx="100" cy="100" r="70" fill="none" stroke="#0F62FE" stroke-width="3"/>
+  
+  <!-- COE Text -->
+  <text x="100" y="85" font-family="IBM Plex Sans, Arial, sans-serif" font-size="42" font-weight="700" fill="#0F62FE" text-anchor="middle">COE</text>
+  
+  <!-- Center of Excellence Text -->
+  <text x="100" y="115" font-family="IBM Plex Sans, Arial, sans-serif" font-size="11" font-weight="500" fill="#0F62FE" text-anchor="middle" opacity="0.8">CENTER OF</text>
+  <text x="100" y="128" font-family="IBM Plex Sans, Arial, sans-serif" font-size="11" font-weight="500" fill="#0F62FE" text-anchor="middle" opacity="0.8">EXCELLENCE</text>
+  
+  <!-- Decorative Elements - Top -->
+  <path d="M 100 15 L 105 25 L 95 25 Z" fill="#0F62FE" opacity="0.6"/>
+  
+  <!-- Decorative Elements - Bottom -->
+  <path d="M 100 185 L 105 175 L 95 175 Z" fill="#0F62FE" opacity="0.6"/>
+  
+  <!-- Decorative Elements - Left -->
+  <path d="M 15 100 L 25 95 L 25 105 Z" fill="#0F62FE" opacity="0.6"/>
+  
+  <!-- Decorative Elements - Right -->
+  <path d="M 185 100 L 175 95 L 175 105 Z" fill="#0F62FE" opacity="0.6"/>
+  
+  <!-- Corner Accents -->
+  <circle cx="40" cy="40" r="3" fill="#0F62FE" opacity="0.5"/>
+  <circle cx="160" cy="40" r="3" fill="#0F62FE" opacity="0.5"/>
+  <circle cx="40" cy="160" r="3" fill="#0F62FE" opacity="0.5"/>
+  <circle cx="160" cy="160" r="3" fill="#0F62FE" opacity="0.5"/>
+  
+  <!-- Innovation Dots -->
+  <circle cx="70" cy="50" r="2" fill="#0F62FE" opacity="0.4"/>
+  <circle cx="130" cy="50" r="2" fill="#0F62FE" opacity="0.4"/>
+  <circle cx="70" cy="150" r="2" fill="#0F62FE" opacity="0.4"/>
+  <circle cx="130" cy="150" r="2" fill="#0F62FE" opacity="0.4"/>
+</svg>
+
+<!-- Made with Bob -->
