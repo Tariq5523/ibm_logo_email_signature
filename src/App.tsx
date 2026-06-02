@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 // @ts-ignore - gif.js doesn't have TypeScript definitions
 import GIF from 'gif.js';
 
-type AnimationType = 'pulse' | 'swing' | 'bounce' | 'slide';
+type AnimationType = 'pulse' | 'swing' | 'bounce' | 'slide' | 'glitch' | 'flip';
 type LogoType = 'ibm' | 'coe' | 'bob';
 
 interface AnimationConfig {
@@ -24,6 +24,8 @@ const animations: Record<AnimationType, AnimationConfig> = {
   swing: { name: 'Swing', description: 'Pendulum swing motion', duration: 3, frames: 90 },
   bounce: { name: 'Bounce', description: 'Playful bounce', duration: 2, frames: 60 },
   slide: { name: 'Slide', description: 'Gentle slide motion', duration: 3, frames: 90 },
+  glitch: { name: 'Glitch', description: 'Digital glitch effect', duration: 2, frames: 60 },
+  flip: { name: 'Flip', description: '3D flip rotation', duration: 3, frames: 90 },
 };
 
 const logos: Record<LogoType, LogoConfig> = {
@@ -60,6 +62,16 @@ function App() {
       case 'slide':
         return {
           x: [-10, 10, -10],
+        };
+      case 'glitch':
+        return {
+          x: [0, -5, 5, -3, 3, 0],
+          y: [0, 3, -3, 2, -2, 0],
+          skewX: [0, -2, 2, -1, 1, 0],
+        };
+      case 'flip':
+        return {
+          rotateY: [0, 180, 360],
         };
     }
   };
@@ -177,6 +189,26 @@ function App() {
           case 'slide': {
             const slideX = 10 * Math.sin(progress * Math.PI * 2);
             ctx.translate(slideX, 0);
+            break;
+          }
+          
+          case 'glitch': {
+            // Digital glitch effect with random position shifts
+            const t = progress * 6; // 6 keyframes
+            const glitchX = t < 1 ? 0 : t < 2 ? -5 : t < 3 ? 5 : t < 4 ? -3 : t < 5 ? 3 : 0;
+            const glitchY = t < 1 ? 0 : t < 2 ? 3 : t < 3 ? -3 : t < 4 ? 2 : t < 5 ? -2 : 0;
+            ctx.translate(glitchX, glitchY);
+            // Add slight skew for glitch effect
+            const skew = t < 1 ? 0 : t < 2 ? -0.035 : t < 3 ? 0.035 : t < 4 ? -0.017 : t < 5 ? 0.017 : 0;
+            ctx.transform(1, 0, skew, 1, 0, 0);
+            break;
+          }
+          
+          case 'flip': {
+            // 3D flip effect using scale to simulate rotateY
+            const angle = progress * Math.PI * 2; // 0 to 2π
+            const scaleX = Math.cos(angle);
+            ctx.scale(scaleX, 1);
             break;
           }
         }
