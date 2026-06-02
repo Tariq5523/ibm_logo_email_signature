@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import GIF from 'gif.js';
 
 type AnimationType = 'pulse' | 'swing' | 'bounce' | 'slide';
-type LogoType = 'ibm' | 'coe';
+type LogoType = 'ibm' | 'coe' | 'bob';
 
 interface AnimationConfig {
   name: string;
@@ -29,6 +29,7 @@ const animations: Record<AnimationType, AnimationConfig> = {
 const logos: Record<LogoType, LogoConfig> = {
   ibm: { name: 'IBM', file: 'ibm-logo.png', displayName: 'IBM Logo' },
   coe: { name: 'COE', file: 'coe-logo.svg', displayName: 'Center of Excellence' },
+  bob: { name: 'Bob', file: 'IBM_bob_logo.svg', displayName: 'Bob AI Assistant' },
 };
 
 function App() {
@@ -275,7 +276,7 @@ function App() {
         </p>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
+          gridTemplateColumns: 'repeat(3, 1fr)',
           gap: '10px',
         }}>
           {(Object.keys(logos) as LogoType[]).map((type) => (
